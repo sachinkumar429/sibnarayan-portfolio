@@ -13,13 +13,11 @@
         }
 
         :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --accent: #f093fb;
+            --primary: #6a82fb;
+            --secondary: #fc5c7d;
             --dark: #1a1a2e;
-            --light: #eee;
-            --gold: #ffd700;
-            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --light: #f4f4f9;
+            --gold: #ffc107;
             --text-light: #ffffff;
             --text-dark: #333333;
         }
@@ -29,6 +27,7 @@
             line-height: 1.6;
             color: var(--text-dark);
             overflow-x: hidden;
+            background-color: var(--dark);
         }
 
         /* Animated background */
@@ -39,7 +38,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background: linear-gradient(-45deg, var(--primary), var(--secondary), #ffc107, #6a82fb);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
         }
@@ -55,7 +54,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(26, 26, 46, 0.7);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1000;
@@ -76,12 +75,7 @@
             font-weight: bold;
             color: var(--text-light);
             text-decoration: none;
-            animation: logoGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
-            to { text-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .nav-links {
@@ -93,60 +87,83 @@
         .nav-links a {
             color: var(--text-light);
             text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            padding-bottom: 5px;
             position: relative;
-            overflow: hidden;
         }
-
-        .nav-links a::before {
+        
+        .nav-links a::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transition: left 0.3s ease;
-        }
-
-        .nav-links a:hover::before {
+            bottom: 0;
             left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
+            color: var(--gold);
             transform: translateY(-2px);
         }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
             color: var(--text-light);
             position: relative;
+            padding: 8rem 2rem 2rem;
         }
 
-        .hero-content {
-            animation: fadeInUp 1s ease-out;
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap-reverse; /* Puts text first on mobile */
         }
+        
+        .hero-content {
+            flex: 1;
+            text-align: left;
+            animation: fadeInUp 1s ease-out;
+            max-width: 600px;
+        }
+        
+        .hero-photo {
+            flex-shrink: 0;
+        }
+
+        .profile-pic {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: profileGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes profileGlow {
+            from { box-shadow: 0 0 20px rgba(255, 193, 7, 0.4); }
+            to { box-shadow: 0 0 40px rgba(255, 193, 7, 0.8); }
+        }
+
 
         .hero h1 {
             font-size: 4rem;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, #fff, #f093fb, #667eea);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: textShine 3s ease-in-out infinite;
-        }
-
-        @keyframes textShine {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
 
         .hero p {
@@ -158,17 +175,18 @@
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--text-light);
+            background: var(--gold);
+            color: var(--dark);
+            font-weight: bold;
             text-decoration: none;
             border-radius: 50px;
             transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold);
         }
 
         .cta-button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: var(--gold);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
@@ -202,20 +220,19 @@
 
         /* Cards */
         .card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 20px;
             padding: 2rem;
             margin-bottom: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease-out;
         }
 
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .card h3 {
@@ -228,6 +245,25 @@
             color: var(--text-light);
             opacity: 0.9;
         }
+        
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .card ul li {
+            padding-left: 1.5em;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        .card ul li::before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
 
         /* Education & Experience Cards */
         .timeline {
@@ -245,11 +281,10 @@
             background: var(--gold);
         }
 
-        /* Education Cards with Images */
         .timeline-item {
             position: relative;
             margin-bottom: 2rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 15px;
             padding: 1.5rem;
@@ -258,7 +293,12 @@
             transition: all 0.3s ease;
             display: flex;
             gap: 1.5rem;
-            align-items: flex-start;
+            align-items: center;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .timeline-item::before {
@@ -271,27 +311,21 @@
             height: 12px;
             background: var(--gold);
             border-radius: 50%;
-            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.3);
         }
-
-        .timeline-item:hover {
-            transform: translateX(10px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
+        
         .education-image {
-            width: 120px;
-            height: 80px;
-            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
             object-fit: cover;
             border: 2px solid var(--gold);
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
-
-        .education-image:hover {
+        
+         .education-image:hover {
             transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
         }
 
         .education-content {
@@ -310,6 +344,15 @@
         .education-address i {
             color: var(--gold);
         }
+        .education-address a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .education-address a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
 
         /* Skills Grid */
         .skills-grid {
@@ -320,7 +363,7 @@
         }
 
         .skill-category {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
             border-radius: 15px;
             padding: 2rem;
@@ -330,7 +373,7 @@
 
         .skill-category:hover {
             transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .skill-category h4 {
@@ -348,7 +391,7 @@
         }
 
         .skill-tag {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-light);
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
@@ -366,8 +409,7 @@
         .achievement-item {
             display: flex;
             align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             padding: 1.5rem;
             margin-bottom: 1rem;
@@ -377,20 +419,19 @@
 
         .achievement-item:hover {
             transform: translateX(10px);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .achievement-item div {
+            flex: 1;
         }
 
         .achievement-icon {
             font-size: 2rem;
             color: var(--gold);
-            margin-right: 1rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+            margin-right: 1.5rem;
+            width: 40px;
+            text-align: center;
         }
 
         /* Contact */
@@ -402,8 +443,7 @@
         }
 
         .contact-item {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
@@ -413,85 +453,52 @@
 
         .contact-item:hover {
             transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .contact-item i {
             font-size: 2rem;
             color: var(--gold);
             margin-bottom: 1rem;
-            animation: pulse 2s infinite;
+        }
+        
+        .contact-item h3 {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
         }
 
         .contact-link {
             color: var(--text-light);
             text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
-            max-width: 100%;
+            transition: color 0.3s ease;
             word-break: break-word;
-            text-align: center;
         }
 
         .contact-link:hover {
-            background: var(--gold);
-            color: var(--dark);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-            text-decoration: none;
+            color: var(--gold);
+            text-decoration: underline;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .contact-item p {
+            color: rgba(255,255,255,0.8);
         }
-
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
+        
 
         /* Animations */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive for education */
+        /* Responsive design */
         @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-content {
+                text-align: center;
+            }
             .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.2rem; }
             .nav-links { display: none; }
@@ -500,12 +507,8 @@
             .timeline-item { 
                 margin-left: 1rem; 
                 flex-direction: column;
+                align-items: center;
                 text-align: center;
-            }
-            .education-image {
-                width: 100px;
-                height: 60px;
-                align-self: center;
             }
         }
 
@@ -513,7 +516,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.6s ease;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
         .fade-in.visible {
@@ -525,9 +528,6 @@
 <body>
     <div class="animated-bg"></div>
     
-    <!-- Floating particles -->
-    <div class="particles"></div>
-
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
@@ -544,10 +544,15 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>SIBNARAYAN</h1>
-            <p>Physical Education Professional & Taekwondo Expert</p>
-            <a href="#about" class="cta-button">Discover My Journey</a>
+        <div class="hero-container">
+             <div class="hero-photo">
+                <img src="https://placehold.co/400x400/FFFFFF/333333?text=SN" alt="Sibnarayan's Photo" class="profile-pic">
+            </div>
+            <div class="hero-content">
+                <h1>SIBNARAYAN</h1>
+                <p>Physical Education Professional & Taekwondo Expert</p>
+                <a href="#about" class="cta-button">Discover My Journey</a>
+            </div>
         </div>
     </section>
 
@@ -564,50 +569,50 @@
         <h2 class="section-title fade-in">Education</h2>
         <div class="timeline fade-in">
             <div class="timeline-item">
-                <div class="education-image" style="background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">10TH</div>
+                <img src="https://placehold.co/200x200/6a82fb/FFFFFF?text=10th" alt="High School Icon" class="education-image">
                 <div class="education-content">
                     <h3>Matriculation (10th)</h3>
                     <p><strong>Ukhra Adarsha Hindi High School</strong></p>
                     <p>W.B.B.S.E | 2012 | 37.4%</p>
                     <div class="education-address">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Ukhra, Paschim Bardhaman, West Bengal</span>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Ukhra+Adarsha+Hindi+High+School" target="_blank">Ukhra, Paschim Bardhaman, West Bengal</a>
                     </div>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="education-image" style="background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">12TH</div>
+                <img src="https://placehold.co/200x200/fc5c7d/FFFFFF?text=12th" alt="Higher Secondary Icon" class="education-image">
                 <div class="education-content">
                     <h3>Higher Secondary (12th, Arts)</h3>
                     <p><strong>Ukhra Adarsha Hindi High School</strong></p>
                     <p>W.B.C.H.S.E | 2015 | 50%</p>
                     <div class="education-address">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Ukhra, Paschim Bardhaman, West Bengal</span>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Ukhra+Adarsha+Hindi+High+School" target="_blank">Ukhra, Paschim Bardhaman, West Bengal</a>
                     </div>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="education-image" style="background: linear-gradient(135deg, #764ba2, #667eea); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">B.A.</div>
+                 <img src="https://placehold.co/200x200/8A2BE2/FFFFFF?text=B.A." alt="Bachelor of Arts Icon" class="education-image">
                 <div class="education-content">
                     <h3>Bachelor of Arts (B.A.)</h3>
                     <p><strong>Vinoba Bhave University, Hazaribag</strong></p>
                     <p>K.S.G.M. College, Nirsa, Dhanbad | 2018 | 51%</p>
                     <div class="education-address">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Nirsa, Dhanbad, Jharkhand 828205</span>
+                        <a href="https://www.google.com/maps/search/?api=1&query=K.S.G.M.+College,+Nirsa" target="_blank">Nirsa, Dhanbad, Jharkhand 828205</a>
                     </div>
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="education-image" style="background: linear-gradient(135deg, #ffd700, #ffb347); display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold; font-size: 11px;">B.P.Ed</div>
+                <img src="https://placehold.co/200x200/ffc107/333333?text=B.P.Ed" alt="B.P.Ed Icon" class="education-image">
                 <div class="education-content">
                     <h3>Bachelor of Physical Education (B.P.Ed)</h3>
                     <p><strong>Ramakrishna Mission Vivekananda Educational & Research Institute</strong></p>
                     <p>Expected Completion: 2022 | Currently Pursuing</p>
                     <div class="education-address">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Belur Math, Howrah, West Bengal 711202</span>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Ramakrishna+Mission+Vivekananda+Educational+and+Research+Institute,+Belur+Math" target="_blank">Belur Math, Howrah, West Bengal 711202</a>
                     </div>
                 </div>
             </div>
@@ -627,31 +632,13 @@
             <div class="skill-category">
                 <h4><i class="fas fa-running"></i>Sports & Interests</h4>
                 <div class="skill-tags">
-                    <span class="skill-tag">Athletics</span>
-                    <span class="skill-tag">Football</span>
-                    <span class="skill-tag">Volleyball</span>
-                    <span class="skill-tag">Yoga</span>
-                    <span class="skill-tag">Kabaddi</span>
-                    <span class="skill-tag">Hockey</span>
-                    <span class="skill-tag">Kho Kho</span>
-                    <span class="skill-tag">Tennis</span>
-                    <span class="skill-tag">Table Tennis</span>
-                    <span class="skill-tag">Handball</span>
-                    <span class="skill-tag">Fitness</span>
-                    <span class="skill-tag">Carrom</span>
-                    <span class="skill-tag">Chess</span>
-                    <span class="skill-tag">Gymnastics</span>
-                    <span class="skill-tag">Aerobics</span>
+                    <span class="skill-tag">Athletics</span> <span class="skill-tag">Football</span> <span class="skill-tag">Volleyball</span> <span class="skill-tag">Yoga</span> <span class="skill-tag">Kabaddi</span> <span class="skill-tag">Hockey</span> <span class="skill-tag">Kho Kho</span> <span class="skill-tag">Tennis</span> <span class="skill-tag">Table Tennis</span> <span class="skill-tag">Handball</span> <span class="skill-tag">Fitness</span> <span class="skill-tag">Carrom</span> <span class="skill-tag">Chess</span> <span class="skill-tag">Gymnastics</span> <span class="skill-tag">Aerobics</span>
                 </div>
             </div>
             <div class="skill-category">
                 <h4><i class="fas fa-users"></i>Professional Strengths</h4>
                 <div class="skill-tags">
-                    <span class="skill-tag">Leadership</span>
-                    <span class="skill-tag">Communication</span>
-                    <span class="skill-tag">Team Building</span>
-                    <span class="skill-tag">Cooperation</span>
-                    <span class="skill-tag">Adaptability</span>
+                    <span class="skill-tag">Leadership</span> <span class="skill-tag">Communication</span> <span class="skill-tag">Team Building</span> <span class="skill-tag">Cooperation</span> <span class="skill-tag">Adaptability</span>
                 </div>
             </div>
             <div class="skill-category">
@@ -722,49 +709,25 @@
                 <h3>Location</h3>
                 <p>Diamond Colliery, Paschim Bardhaman, West Bengal – 713322</p>
             </div>
-            <div class="contact-item">
-                <i class="fas fa-calendar"></i>
-                <h3>Age</h3>
-                <p>Born: July 18, 1995</p>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-language"></i>
-                <h3>Languages</h3>
-                <p>English, Hindi, Bengali</p>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-heart"></i>
-                <h3>Hobbies</h3>
-                <p>Teaching, Travelling, Dancing, Exploring new activities</p>
-            </div>
         </div>
     </section>
 
     <script>
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.querySelector('.particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-
         // Scroll animations
         function handleScrollAnimations() {
             const elements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
             elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('visible');
-                }
+                observer.observe(element);
             });
         }
 
@@ -785,39 +748,18 @@
         // Navigation background on scroll
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(0, 0, 0, 0.3)';
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(26, 26, 46, 0.8)';
+                nav.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
             } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.1)';
+                nav.style.background = 'rgba(26, 26, 46, 0.7)';
+                 nav.style.boxShadow = 'none';
             }
-            handleScrollAnimations();
         });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
             handleScrollAnimations();
-            
-            // Add staggered animation to timeline items
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            timelineItems.forEach((item, index) => {
-                item.style.animationDelay = (index * 0.2) + 's';
-            });
-
-            // Add staggered animation to skill categories
-            const skillCategories = document.querySelectorAll('.skill-category');
-            skillCategories.forEach((category, index) => {
-                category.style.animationDelay = (index * 0.1) + 's';
-            });
-        });
-
-        // Add parallax effect to hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
         });
     </script>
 </body>
