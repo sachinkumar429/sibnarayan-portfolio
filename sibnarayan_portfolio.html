@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sibnarayan - Physical Education Professional</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --dark: #1a1a2e;
+            --light: #eee;
+            --gold: #ffd700;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --text-light: #ffffff;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #667eea);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-light);
+            text-decoration: none;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+            to { text-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            left: 0;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f093fb, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShine 3s ease-in-out infinite;
+        }
+
+        @keyframes textShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card p, .card ul {
+            color: var(--text-light);
+            opacity: 0.9;
+        }
+
+        /* Education & Experience Cards */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gold);
+        }
+
+        /* Education Cards with Images */
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-left: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .education-image {
+            width: 120px;
+            height: 80px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid var(--gold);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .education-image:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .education-content {
+            flex: 1;
+        }
+
+        .education-address {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .education-address i {
+            color: var(--gold);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .skill-category h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: scale(1.1);
+        }
+
+        /* Achievements */
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .achievement-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-right: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        .contact-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-link:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+            text-decoration: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive for education */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .nav-links { display: none; }
+            .section { padding: 3rem 1rem; }
+            .timeline { padding-left: 1rem; }
+            .timeline-item { 
+                margin-left: 1rem; 
+                flex-direction: column;
+                text-align: center;
+            }
+            .education-image {
+                width: 100px;
+                height: 60px;
+                align-self: center;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <!-- Floating particles -->
+    <div class="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">SIBNARAYAN</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>SIBNARAYAN</h1>
+            <p>Physical Education Professional & Taekwondo Expert</p>
+            <a href="#about" class="cta-button">Discover My Journey</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title fade-in">Career Objective</h2>
+        <div class="card fade-in">
+            <p>Seeking the position of Physical Education Teacher in a reputed institution where I can utilize my knowledge and skills to promote socialization, sportsmanship, physical fitness, and team spirit among students.</p>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <h2 class="section-title fade-in">Education</h2>
+        <div class="timeline fade-in">
+            <div class="timeline-item">
+                <div class="education-image" style="background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">10TH</div>
+                <div class="education-content">
+                    <h3>Matriculation (10th)</h3>
+                    <p><strong>Ukhra Adarsha Hindi High School</strong></p>
+                    <p>W.B.B.S.E | 2012 | 37.4%</p>
+                    <div class="education-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ukhra, Paschim Bardhaman, West Bengal</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="education-image" style="background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">12TH</div>
+                <div class="education-content">
+                    <h3>Higher Secondary (12th, Arts)</h3>
+                    <p><strong>Ukhra Adarsha Hindi High School</strong></p>
+                    <p>W.B.C.H.S.E | 2015 | 50%</p>
+                    <div class="education-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ukhra, Paschim Bardhaman, West Bengal</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="education-image" style="background: linear-gradient(135deg, #764ba2, #667eea); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 12px;">B.A.</div>
+                <div class="education-content">
+                    <h3>Bachelor of Arts (B.A.)</h3>
+                    <p><strong>Vinoba Bhave University, Hazaribag</strong></p>
+                    <p>K.S.G.M. College, Nirsa, Dhanbad | 2018 | 51%</p>
+                    <div class="education-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Nirsa, Dhanbad, Jharkhand 828205</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="education-image" style="background: linear-gradient(135deg, #ffd700, #ffb347); display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold; font-size: 11px;">B.P.Ed</div>
+                <div class="education-content">
+                    <h3>Bachelor of Physical Education (B.P.Ed)</h3>
+                    <p><strong>Ramakrishna Mission Vivekananda Educational & Research Institute</strong></p>
+                    <p>Expected Completion: 2022 | Currently Pursuing</p>
+                    <div class="education-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Belur Math, Howrah, West Bengal 711202</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title fade-in">Skills & Competencies</h2>
+        <div class="skills-grid fade-in">
+            <div class="skill-category">
+                <h4><i class="fas fa-star"></i>Specialization</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Taekwondo</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-running"></i>Sports & Interests</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Athletics</span>
+                    <span class="skill-tag">Football</span>
+                    <span class="skill-tag">Volleyball</span>
+                    <span class="skill-tag">Yoga</span>
+                    <span class="skill-tag">Kabaddi</span>
+                    <span class="skill-tag">Hockey</span>
+                    <span class="skill-tag">Kho Kho</span>
+                    <span class="skill-tag">Tennis</span>
+                    <span class="skill-tag">Table Tennis</span>
+                    <span class="skill-tag">Handball</span>
+                    <span class="skill-tag">Fitness</span>
+                    <span class="skill-tag">Carrom</span>
+                    <span class="skill-tag">Chess</span>
+                    <span class="skill-tag">Gymnastics</span>
+                    <span class="skill-tag">Aerobics</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-users"></i>Professional Strengths</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Leadership</span>
+                    <span class="skill-tag">Communication</span>
+                    <span class="skill-tag">Team Building</span>
+                    <span class="skill-tag">Cooperation</span>
+                    <span class="skill-tag">Adaptability</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-laptop"></i>Computer Skills</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">MS Office (Basic)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="section">
+        <h2 class="section-title fade-in">Achievements</h2>
+        <div class="fade-in">
+            <div class="achievement-item">
+                <i class="fas fa-medal achievement-icon"></i>
+                <div>
+                    <h3>Bronze Medalist - National Taekwondo Championship</h3>
+                    <p>Senior Level Male (U-54 Kg), Official National Taekwondo Championship - 2018</p>
+                </div>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-globe achievement-icon"></i>
+                <div>
+                    <h3>International Championship Participant</h3>
+                    <p>Kukkiwon Indian International Taekwondo Championship</p>
+                </div>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-certificate achievement-icon"></i>
+                <div>
+                    <h3>Certified Black Belt</h3>
+                    <p>Certified Taekwondo Black Belt from South Korea</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title fade-in" style="font-size: 2rem; margin-top: 3rem;">Workshops & Seminars</h3>
+        <div class="card fade-in">
+            <ul>
+                <li>World Taekwondo Kyorugi Technical Training Program</li>
+                <li>National Coach & Referee Certification</li>
+                <li>State New Poomsae & Referee Seminar – 2018</li>
+                <li>State Referee & Self Defence Seminar – 2017</li>
+                <li>State-level Workshop on Kabaddi (General & Athletes with Hearing Impairment) – 2022</li>
+                <li>National Seminar on Comprehensive Fitness Training for General & Paralympic Sports – 2022</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title fade-in">Get In Touch</h2>
+        <div class="contact-info fade-in">
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <h3>Phone</h3>
+                <a href="tel:+917602634055" class="contact-link">+91 7602634055</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <a href="mailto:sib1995narayan@gmail.com" class="contact-link">sib1995narayan@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Location</h3>
+                <p>Diamond Colliery, Paschim Bardhaman, West Bengal – 713322</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-calendar"></i>
+                <h3>Age</h3>
+                <p>Born: July 18, 1995</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-language"></i>
+                <h3>Languages</h3>
+                <p>English, Hindi, Bengali</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-heart"></i>
+                <h3>Hobbies</h3>
+                <p>Teaching, Travelling, Dancing, Exploring new activities</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.querySelector('.particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navigation background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.1)';
+            }
+            handleScrollAnimations();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            handleScrollAnimations();
+            
+            // Add staggered animation to timeline items
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                item.style.animationDelay = (index * 0.2) + 's';
+            });
+
+            // Add staggered animation to skill categories
+            const skillCategories = document.querySelectorAll('.skill-category');
+            skillCategories.forEach((category, index) => {
+                category.style.animationDelay = (index * 0.1) + 's';
+            });
+        });
+
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
